@@ -40,7 +40,10 @@ export default function Transactions() {
   } else {
     return (
       <>
-        <TransactionList transData={receivedTransactions?.data} />
+        <TransactionList
+          transData={receivedTransactions?.data}
+          loading={receivedTransactions?.loading}
+        />
         <CsvImporter />
       </>
     )

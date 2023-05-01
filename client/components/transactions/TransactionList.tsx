@@ -7,6 +7,7 @@ import { Table } from '@mantine/core'
 
 interface Props {
   transData: models.Transactions[]
+  loading: boolean
 }
 
 export default function TransactionList(props: Props) {
@@ -24,7 +25,7 @@ export default function TransactionList(props: Props) {
   ))
   return (
     <>
-      {!props.transData ? (
+      {!props.loading ? (
         <div className=" flex justify-center">
           <p>Loading....</p>
         </div>
