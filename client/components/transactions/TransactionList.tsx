@@ -23,11 +23,13 @@ export default function TransactionList(props: Props) {
       <td>{element.note}</td>
     </tr>
   ))
+
+  console.log(props.loading)
   return (
     <>
-      {!props.loading ? (
+      {props.loading ? (
         <div className=" flex justify-center">
-          <p>Loading....</p>
+          <p>LOADING...</p>
         </div>
       ) : (
         <>
