@@ -4,8 +4,8 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import { useEffect, useState } from 'react'
 import { Table } from '@mantine/core'
-import { usePagination } from '@mantine/hooks'
-import { Pagination } from '@mantine/core'
+import { Pagination, Flex, Input } from '@mantine/core'
+import { search } from 'superagent'
 
 interface Props {
   transData: models.Transactions[]
@@ -13,14 +13,45 @@ interface Props {
 }
 
 export default function TransactionList(props: Props) {
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [searchText, setSearchText] = useState<string>('')
+  const dataWithSearchString = props.transData.map((data) => {
+    return {
+      ...data,
+      searchString:
+        data.id.toString() +
+        data.amount.toString() +
+        data.payee +
+        data.particular +
+        data.code +
+        data.reference +
+        data.note,
+    }
+  })
+
+  const dataAfterSearch = dataWithSearchString.filter((data) => {
+    if (searchText === '') {
+      return data
+    } else {
+      if (data.searchString.toLowerCase().includes(searchText.toLowerCase())) {
+        return data
+      } else {
+        return null
+      }
+    }
+  })
+
   const itemsPerPage = 10
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
-  const pageData = props.transData.slice(startIndex, endIndex)
+  const pageData = dataAfterSearch.slice(startIndex, endIndex)
   const totalPages = Math.ceil(props.transData.length / itemsPerPage)
 
   const handlePageChange = (page: number) => setCurrentPage(page)
+
+  function handleChangeName(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearchText(e.target.value)
+  }
 
   const rows = pageData.map((element) => (
     <tr key={element.id}>
@@ -43,6 +74,25 @@ export default function TransactionList(props: Props) {
         </div>
       ) : (
         <>
+          <div>
+            <Flex
+              mih={50}
+              gap="md"
+              justify="flex-end"
+              align="center"
+              direction="row"
+              wrap="wrap"
+              mb={10}
+            >
+              <Input.Wrapper label="Search By Text">
+                <Input
+                  placeholder="Enter Text"
+                  onChange={handleChangeName}
+                  value={searchText}
+                />
+              </Input.Wrapper>
+            </Flex>
+          </div>
           <Table striped highlightOnHover withBorder>
             <thead>
               <tr>
