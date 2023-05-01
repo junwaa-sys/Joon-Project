@@ -44,7 +44,7 @@ export default function TransactionList(props: Props) {
                 <th>Note</th>
               </tr>
             </thead>
-            <tbody>{rows}</tbody>
+            <tbody>{rows ? 'No Data' : rows}</tbody>
           </Table>
         </>
       )}
