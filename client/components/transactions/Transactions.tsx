@@ -24,7 +24,7 @@ export default function Transactions() {
     const token = getAccessTokenSilently().then((token) => {
       dispatch(getTransactions(token))
     })
-  }, [dispatch, getAccessTokenSilently, editData])
+  }, [dispatch, getAccessTokenSilently, editData, addedTransaction])
 
   function unhideField(data: models.Transactions) {
     setEditData(data)

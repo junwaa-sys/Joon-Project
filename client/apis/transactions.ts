@@ -17,7 +17,7 @@ function getTransactionsByUserId(
 function addTransaction(transactionData: models.NewTransaction, token: string) {
   return request
     .post(rootUrl + '/add')
-    .set('Authorization', `Beare ${token}`)
+    .set('Authorization', `Bearer ${token}`)
     .send(transactionData)
     .then((res) => {
       return res.body

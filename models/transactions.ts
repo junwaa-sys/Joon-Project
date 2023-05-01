@@ -11,5 +11,8 @@ export interface Transactions {
   note: string
 }
 
-export type NewTransaction = Omit<Transactions, 'id' | 'userId'>
+export type NewTransaction = Omit<
+  Transactions,
+  'id' | 'userId' | 'note' | 'categoryId'
+>
 export type UpdateTransaction = Partial<NewTransaction>

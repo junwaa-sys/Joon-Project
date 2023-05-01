@@ -4,6 +4,8 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import { useEffect, useState } from 'react'
 import { Table } from '@mantine/core'
+import { usePagination } from '@mantine/hooks'
+import { Pagination } from '@mantine/core'
 
 interface Props {
   transData: models.Transactions[]
@@ -11,7 +13,16 @@ interface Props {
 }
 
 export default function TransactionList(props: Props) {
-  const rows = props.transData.map((element) => (
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 10
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const pageData = props.transData.slice(startIndex, endIndex)
+  const totalPages = Math.ceil(props.transData.length / itemsPerPage)
+
+  const handlePageChange = (page: number) => setCurrentPage(page)
+
+  const rows = pageData.map((element) => (
     <tr key={element.id}>
       <td>{element.id}</td>
       <td>{element.transactionDate}</td>
@@ -24,7 +35,6 @@ export default function TransactionList(props: Props) {
     </tr>
   ))
 
-  console.log(props.loading)
   return (
     <>
       {props.loading ? (
@@ -46,8 +56,13 @@ export default function TransactionList(props: Props) {
                 <th>Note</th>
               </tr>
             </thead>
-            <tbody>{rows ? 'No Data' : rows}</tbody>
+            <tbody>{rows}</tbody>
           </Table>
+          <Pagination
+            style={{ marginTop: '1rem', marginBottom: '1rem' }}
+            total={totalPages}
+            onChange={handlePageChange}
+          />
         </>
       )}
     </>

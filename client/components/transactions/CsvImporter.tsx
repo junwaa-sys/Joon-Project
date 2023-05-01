@@ -4,11 +4,19 @@ import { addTransaction } from '../../actions/addTransaction'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import { useEffect, useState } from 'react'
 import * as models from '../../../models/transactions'
+import { useAuth0 } from '@auth0/auth0-react'
 
-interface Prop {
-  addTransactions: (transactionData: models.NewTransaction) => void
-}
 export default function CsvImporter() {
+  const dispatch = useAppDispatch()
+  const { getAccessTokenSilently } = useAuth0()
+
+  async function addTransData(transDatas: models.NewTransaction[]) {
+    const token = await getAccessTokenSilently()
+    transDatas.map(async (data) => {
+      await dispatch(addTransaction(token, data))
+    })
+  }
+
   return (
     <>
       <Importer
@@ -21,23 +29,20 @@ export default function CsvImporter() {
               return row
             }
           })
-
-          console.log(expenses)
+          addTransData(expenses)
         }}
         defaultNoHeader={false} // optional, keeps "data has headers" checkbox off by default
         restartable={false} // optional, lets user choose to upload another file when import is complete
         onStart={({ file, preview, fields, columnFields }) => {
           // optional, invoked when user has mapped columns and started import
-          console.log('start')
         }}
         onComplete={({ file, preview, fields, columnFields }) => {
           // optional, invoked right after import is done (but user did not dismiss/reset the widget yet)
-          console.log('complete')
         }}
         onClose={({ file, preview, fields, columnFields }) => {
           // optional, if this is specified the user will see a "Finish" button after import is done,
           // which will call this when clicked
-          console.log('close')
+          window.location.reload()
         }}
 
         // CSV options passed directly to PapaParse if specified:
@@ -54,11 +59,10 @@ export default function CsvImporter() {
         <ImporterField name="transactionDate" label="Transaction Date" />
         <ImporterField name="payee" label="Payee" />
         <ImporterField name="amount" label="Amount" />
-        <ImporterField name="particulars" label="Particulars" optional />
+        <ImporterField name="particular" label="Particulars" optional />
         <ImporterField name="code" label="Code" optional />
         <ImporterField name="reference" label="Reference" optional />
       </Importer>
-      ;
     </>
   )
 }
