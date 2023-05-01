@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import { AppShell, Navbar, Header } from '@mantine/core'
 
 import HeaderBar from './HeaderBar'
+import SideNavBar from './SideNavBar'
 import Home from './Home'
 import DashBoard from './DashBoard'
 import Payables from './Payables'
@@ -14,7 +15,7 @@ function App() {
       padding="md"
       navbar={
         <Navbar width={{ base: 300 }} height={500} p="xs">
-          TEST NAV BAR
+          <SideNavBar />
         </Navbar>
       }
       header={
@@ -32,7 +33,8 @@ function App() {
       })}
     >
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<DashBoard />} />
+        <Route path="/budgets" element={<Budgets />} />
       </Routes>
     </AppShell>
   )
