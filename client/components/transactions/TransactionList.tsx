@@ -1,58 +1,27 @@
 import { getTransactions } from '../../actions/getTransactions'
 import * as models from '../../../models/transactions'
 import { useAuth0 } from '@auth0/auth0-react'
-import { useAppDispatch, useAppSelector } from '../../hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import { useEffect, useState } from 'react'
-import DataTable, {
-  TableColumn,
-  ExpanderComponentProps,
-} from 'react-data-table-component'
+import { Table } from '@mantine/core'
 
 interface Props {
   transData: models.Transactions[]
-  unhideField: (row: models.UpdateTransaction) => void
 }
 
 export default function TransactionList(props: Props) {
-  const columns: TableColumn<models.Transactions>[] = [
-    {
-      name: 'id',
-      selector: (row) => row.id,
-      sortable: true,
-    },
-    {
-      name: 'Transaction Date',
-      selector: (row) => row.transactionDate,
-      sortable: true,
-    },
-    {
-      name: 'Payee',
-      selector: (row) => row.payee,
-      sortable: true,
-    },
-    {
-      name: 'Amount',
-      selector: (row) => row.amount,
-      sortable: true,
-    },
-    {
-      name: 'particular',
-      selector: (row) => row.particular,
-    },
-    {
-      name: 'code',
-      selector: (row) => row.code,
-    },
-    {
-      name: 'reference',
-      selector: (row) => row.reference,
-    },
-    {
-      name: 'note',
-      selector: (row) => row.note,
-    },
-  ]
-
+  const rows = props.transData.map((element) => (
+    <tr key={element.id}>
+      <td>{element.id}</td>
+      <td>{element.transactionDate}</td>
+      <td>{element.payee}</td>
+      <td>{element.amount}</td>
+      <td>{element.particular}</td>
+      <td>{element.code}</td>
+      <td>{element.reference}</td>
+      <td>{element.note}</td>
+    </tr>
+  ))
   return (
     <>
       {!props.transData ? (
@@ -61,19 +30,21 @@ export default function TransactionList(props: Props) {
         </div>
       ) : (
         <>
-          <div className="m-5 justify-center border-2">
-            <DataTable
-              columns={columns}
-              data={props.transData}
-              highlightOnHover={true}
-              noDataComponent={'no data'}
-              dense={true}
-              pagination
-              onRowDoubleClicked={(row, event) => {
-                props.unhideField(row)
-              }}
-            />
-          </div>
+          <Table striped highlightOnHover withBorder>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Payee</th>
+                <th>Amount</th>
+                <th>Particular</th>
+                <th>Code</th>
+                <th>Reference</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
         </>
       )}
     </>

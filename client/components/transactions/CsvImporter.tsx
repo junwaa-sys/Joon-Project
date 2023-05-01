@@ -1,7 +1,7 @@
 import { Importer, ImporterField } from 'react-csv-importer'
 import 'react-csv-importer/dist/index.css'
 import { addTransaction } from '../../actions/addTransaction'
-import { useAppDispatch, useAppSelector } from '../../hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import { useEffect, useState } from 'react'
 import * as models from '../../../models/transactions'
 
@@ -28,13 +28,16 @@ export default function CsvImporter() {
         restartable={false} // optional, lets user choose to upload another file when import is complete
         onStart={({ file, preview, fields, columnFields }) => {
           // optional, invoked when user has mapped columns and started import
+          console.log('start')
         }}
         onComplete={({ file, preview, fields, columnFields }) => {
           // optional, invoked right after import is done (but user did not dismiss/reset the widget yet)
+          console.log('complete')
         }}
         onClose={({ file, preview, fields, columnFields }) => {
           // optional, if this is specified the user will see a "Finish" button after import is done,
           // which will call this when clicked
+          console.log('close')
         }}
 
         // CSV options passed directly to PapaParse if specified:

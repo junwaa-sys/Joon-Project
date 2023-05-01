@@ -4,10 +4,10 @@ import { getTransactions } from '../../actions/getTransactions'
 import { updateTransaction } from '../../actions/updateTransaction'
 import { deleteTransaction } from '../../actions/deleteTransaction'
 import { useAuth0 } from '@auth0/auth0-react'
-import { useAppDispatch, useAppSelector } from '../../hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import { useEffect, useState } from 'react'
 import TransactionList from './TransactionList'
-import EditTransaction from './EditTranscation'
+import CsvImporter from './CsvImporter'
 
 export default function Transactions() {
   const [showField, setShowField] = useState(false)
@@ -40,15 +40,8 @@ export default function Transactions() {
   } else {
     return (
       <>
-        <EditTransaction
-          show={showField}
-          data={editData}
-          hideField={hideField}
-        />
-        <TransactionList
-          transData={receivedTransactions?.data}
-          unhideField={unhideField(row)}
-        />
+        <TransactionList transData={receivedTransactions?.data} />
+        <CsvImporter />
       </>
     )
   }

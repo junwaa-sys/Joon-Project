@@ -93,6 +93,7 @@
     "@tabler/icons-react": "^2.17.0",
     "@tremor/react": "^2.4.0",
     "auth0": "^3.3.0",
+    "css-loader": "^6.7.3",
     "express": "^4.17.2",
     "express-jwt": "^8.4.1",
     "express-jwt-authz": "^2.4.1",
@@ -102,6 +103,7 @@
     "pg": "^8.8.0",
     "react-csv-importer": "^0.8.0",
     "sqlite3": "^5.1.2",
+    "style-loader": "^3.3.2",
     "superagent": "7.1.1",
     "ts-node": "^10.9.1"
   },

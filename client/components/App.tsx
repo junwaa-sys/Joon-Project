@@ -5,6 +5,7 @@ import HeaderBar from './HeaderBar'
 import SideNavBar from './SideNavBar'
 import Home from './Home'
 import DashBoard from './DashBoard'
+import Transactions from './transactions/Transactions'
 import Payables from './Payables'
 import Categories from './Categories'
 import Budgets from './Budgets'
@@ -34,6 +35,7 @@ function App() {
     >
       <Routes>
         <Route path="/dashboard" element={<DashBoard />} />
+        <Route path="/transactions" element={<Transactions />} />
         <Route path="/budgets" element={<Budgets />} />
       </Routes>
     </AppShell>
