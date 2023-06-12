@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <Auth0Provider
       domain="tohora-2023-joon.au.auth0.com"
       clientId="cxRrUeWMYe8WrPUlC6QVzLqUw5XdZPeM"
-      redirectUri={window.location.origin}
+      redirectUri={`${window.location.origin}/dashboard`}
       audience="https://fruits/api"
     >
       <Router>

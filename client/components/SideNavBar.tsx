@@ -1,29 +1,43 @@
 import { useState } from 'react'
-import { IconGauge, IconFingerprint, IconActivity } from '@tabler/icons-react'
+import {
+  IconDashboard,
+  IconList,
+  IconCoin,
+  IconCategory,
+} from '@tabler/icons-react'
 import { Box, NavLink } from '@mantine/core'
 
+interface Props {
+  path: string
+}
 const data = [
-  { icon: IconGauge, label: 'Dashboard', link: '/dashboard' },
+  { icon: IconDashboard, label: 'Dashboard', link: '/dashboard' },
   {
-    icon: IconFingerprint,
+    icon: IconList,
     label: 'Transactions',
     link: '/transactions',
   },
-  { icon: IconActivity, label: 'Budgets', link: '/budgets' },
+  { icon: IconCoin, label: 'Budgets', link: '/budgets' },
+  { icon: IconCategory, label: 'Categories', link: '/categories' },
 ]
 
-export default function SideNavBar() {
-  const [active, setActive] = useState(0)
+export default function SideNavBar(props: Props) {
+  const linkData = data.filter((linkData) => {
+    if (linkData.link === props.path) {
+      return linkData.link
+    }
+  })
 
-  const items = data.map((item, index) => (
+  const [active, setActive] = useState(linkData[0] ? linkData[0].link : null)
+  const items = data.map((item) => (
     <NavLink
       key={item.label}
-      active={index === active}
+      active={item.link === active}
       label={item.label}
       component="a"
       href={item.link}
-      icon={<item.icon size="1rem" stroke={1.5} />}
-      onClick={() => setActive(index)}
+      icon={<item.icon size="1.5rem" stroke={1.5} />}
+      onClick={() => setActive(item.link)}
     />
   ))
 

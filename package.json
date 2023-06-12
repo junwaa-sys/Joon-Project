@@ -88,6 +88,7 @@
     "@devacademy/eslint-config": "^1.8.0",
     "@emotion/react": "^11.10.8",
     "@mantine/core": "^6.0.9",
+    "@mantine/dates": "^6.0.9",
     "@mantine/hooks": "^6.0.9",
     "@redux-devtools/extension": "^3.2.3",
     "@tabler/icons-react": "^2.17.0",

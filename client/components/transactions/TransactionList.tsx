@@ -5,10 +5,10 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import { useEffect, useState } from 'react'
 import { Table } from '@mantine/core'
 import { Pagination, Flex, Input } from '@mantine/core'
-import { search } from 'superagent'
 
 interface Props {
   transData: models.Transactions[]
+  handleDblClick(element: models.Transactions): any
   loading: boolean
 }
 
@@ -54,7 +54,12 @@ export default function TransactionList(props: Props) {
   }
 
   const rows = pageData.map((element) => (
-    <tr key={element.id}>
+    <tr
+      key={element.id}
+      onDoubleClick={() => {
+        props.handleDblClick(element)
+      }}
+    >
       <td>{element.id}</td>
       <td>{element.transactionDate}</td>
       <td>{element.payee}</td>

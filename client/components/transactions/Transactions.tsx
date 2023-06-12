@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import { useEffect, useState } from 'react'
 import TransactionList from './TransactionList'
 import CsvImporter from './CsvImporter'
+import AddEditTransaction from './AddEditTransaction'
 
 export default function Transactions() {
   const [showField, setShowField] = useState(false)
@@ -26,13 +27,9 @@ export default function Transactions() {
     })
   }, [dispatch, getAccessTokenSilently, editData, addedTransaction])
 
-  function unhideField(data: models.Transactions) {
-    setEditData(data)
-    setShowField(true)
-  }
-
-  function hideField() {
-    setShowField(false)
+  function handleDblClick(element: models.Transactions) {
+    setEditData(element)
+    console.log(element)
   }
 
   if (!receivedTransactions.data) {
@@ -42,8 +39,10 @@ export default function Transactions() {
       <>
         <TransactionList
           transData={receivedTransactions?.data}
+          handleDblClick={handleDblClick}
           loading={receivedTransactions?.loading}
         />
+        <AddEditTransaction transData={editData} />
         <CsvImporter />
       </>
     )
