@@ -7,7 +7,7 @@ import Home from './Home'
 import DashBoard from './DashBoard'
 import Transactions from './transactions/Transactions'
 import Payables from './Payables'
-import Categories from './Categories'
+import Categories from './categories/Categories'
 import Budgets from './Budgets'
 import { useEffect, useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -69,6 +69,7 @@ function App() {
             <Route path="/dashboard" element={<DashBoard />} />
             <Route path="/transactions" element={<Transactions />} />
             <Route path="/budgets" element={<Budgets />} />
+            <Route path="/categories" element={<Categories />} />
           </Routes>
         </AppShell>
       </>

@@ -29,7 +29,6 @@ export default function Transactions() {
 
   function handleDblClick(element: models.Transactions) {
     setEditData(element)
-    console.log(element)
   }
 
   if (!receivedTransactions.data) {

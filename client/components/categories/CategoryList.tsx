@@ -1,28 +1,24 @@
-import * as models from '../../../models/transactions'
+import * as models from '../../../models/categories'
 import { useState } from 'react'
 import { Table } from '@mantine/core'
 import { Pagination, Flex, Input } from '@mantine/core'
 
 interface Props {
-  transData: models.Transactions[]
-  handleDblClick(element: models.Transactions): any
+  categoryData: models.Category[]
+  handleDblClick(element: models.Category): any
   loading: boolean
 }
 
-export default function TransactionList(props: Props) {
+export default function CategoryList(props: Props) {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [searchText, setSearchText] = useState<string>('')
-  const dataWithSearchString = props.transData.map((data) => {
+  const dataWithSearchString = props.categoryData.map((data) => {
     return {
       ...data,
       searchString:
         data.id.toString() +
-        data.amount.toString() +
-        data.payee +
-        data.particular +
-        data.code +
-        data.reference +
-        data.note,
+        data.description +
+        data.name,        
     }
   })
 
@@ -42,7 +38,7 @@ export default function TransactionList(props: Props) {
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
   const pageData = dataAfterSearch.slice(startIndex, endIndex)
-  const totalPages = Math.ceil(props.transData.length / itemsPerPage)
+  const totalPages = Math.ceil(props.categoryData.length / itemsPerPage)
 
   const handlePageChange = (page: number) => setCurrentPage(page)
 
@@ -58,13 +54,8 @@ export default function TransactionList(props: Props) {
       }}
     >
       <td>{element.id}</td>
-      <td>{element.transactionDate}</td>
-      <td>{element.payee}</td>
-      <td>{element.amount}</td>
-      <td>{element.particular}</td>
-      <td>{element.code}</td>
-      <td>{element.reference}</td>
-      <td>{element.note}</td>
+      <td>{element.name}</td>
+      <td>{element.description}</td>      
     </tr>
   ))
 

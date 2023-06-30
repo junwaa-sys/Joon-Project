@@ -8,6 +8,7 @@ import getTransactionReducer from './getTransactions'
 import addTransactionReducer from './addTransaction'
 import updateTransactionReducer from './updateTransaction'
 import deleteTransactionReducer from './deleteTransaction'
+import getCategoryReducer from './getCategories'
 
 export default combineReducers({
   getPayees: getPayeesListReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
   addTransacion: addTransactionReducer,
   updateTransaction: updateTransactionReducer,
   deleteTransaction: deleteTransactionReducer,
+  getCategories: getCategoryReducer,
 })
