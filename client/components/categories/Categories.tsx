@@ -25,7 +25,7 @@ export default function Categories() {
     setEditData(element)
   }
 
-  if (receivedCategories.loading) {
+  if (!receivedCategories.data) {
     return <div> Loading ....</div>
   } else {
     return (
