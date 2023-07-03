@@ -31,7 +31,7 @@ export default function Transactions() {
     setEditData(element)
   }
 
-  if (!receivedTransactions.data) {
+  if (!receivedTransactions.data || !editData) {
     return <div> Loading ....</div>
   } else {
     return (
